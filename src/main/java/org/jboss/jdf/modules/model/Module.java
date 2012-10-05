@@ -50,7 +50,7 @@ import org.jboss.jdf.modules.xml.PropertiesAdapter;
  * 
  */
 @XmlRootElement(name = "module")
-@XmlType(name = "module", propOrder = { "privateModule", "mainClass", "properties", "resources", "packages", "exports" })
+@XmlType(name = "module", propOrder = { "privateModule", "mainClass", "properties", "resources", "packages" })
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Module extends BaseModule {
 
@@ -59,12 +59,6 @@ public class Module extends BaseModule {
     private Properties properties = new Properties();
 
     private List<Jar> resources = new ArrayList<Jar>();
-
-    private List<ModuleDependency> moduleDependencies = new ArrayList<ModuleDependency>();
-
-    private List<SystemDependency> systemDependencies = new ArrayList<SystemDependency>();
-
-    private Filter exports;
 
     Module() {
         // default constructor for JAXB
@@ -111,37 +105,6 @@ public class Module extends BaseModule {
     @XmlJavaTypeAdapter(PropertiesAdapter.class)
     public Properties getProperties() {
         return properties;
-    }
-
-    /**
-     * The Module dependencies for this module.
-     * 
-     * @return
-     */
-    public List<ModuleDependency> getModuleDependencies() {
-        return moduleDependencies;
-    }
-
-    /**
-     * The System dependencies for this module.
-     * 
-     * @return
-     */
-    public List<SystemDependency> getSystemDependencies() {
-        return systemDependencies;
-    }
-
-    /**
-     * The filter expressions to apply to the export filter of the local resources of this module.
-     * 
-     * @return the exports
-     */
-    public Filter getExports() {
-        return exports;
-    }
-
-    public void setExports(Filter exports) {
-        this.exports = exports;
     }
 
     /**

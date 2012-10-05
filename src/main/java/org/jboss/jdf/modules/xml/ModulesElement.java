@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.jdf.modules.model.BaseModule;
 
@@ -40,34 +41,31 @@ import org.jboss.jdf.modules.model.BaseModule;
  */
 @XmlRootElement(name = "modules")
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlType(propOrder = { "rootPath", "modules" })
 public class ModulesElement {
 
     private List<BaseModule> modules = new ArrayList<BaseModule>();
-    
-    private File rooPath;
-    
+
+    private File rootPath;
+
     ModulesElement() {
         // Default Constructor to JAXB
     }
-    
-    
+
     /**
      * @param rooPath
      */
-    public ModulesElement(File rooPath) {
-        this.rooPath = rooPath;
+    public ModulesElement(File rootPath) {
+        this.rootPath = rootPath;
     }
-    
-    
+
     /**
      * @return the rooPath
      */
-    @XmlElement(name="root-path")
-    public File getRooPath() {
-        return rooPath;
+    @XmlElement(name = "root-path")
+    public File getRootPath() {
+        return rootPath;
     }
-
-
 
     /**
      * @return the module

@@ -26,15 +26,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.logging.Logger;
-
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
 public class ModulesFinder {
-
-    private static final Logger log = Logger.getLogger(ModulesFinder.class.getName());
 
     private List<File> modulesDescriptors = new ArrayList<File>();
 
@@ -43,7 +39,6 @@ public class ModulesFinder {
             throw new IllegalArgumentException(String.format("Path should be a directory: %s", rootPath));
         }
         scanDir(rootPath);
-        log.debugf("Scan for modules finished. %s modules found.", modulesDescriptors.size());
 
         try {
             return modulesDescriptors;
@@ -76,7 +71,6 @@ public class ModulesFinder {
         if (indexLastDot >= 0) {
             String fileName = file.getName();
             String fileExtension = fileName.substring(indexLastDot + 1);
-            log.tracef("File: %s - extension [%s]", file, fileExtension);
             // If the extension is xml
             if (fileExtension.equalsIgnoreCase("xml")) {
                 modulesDescriptors.add(file);
