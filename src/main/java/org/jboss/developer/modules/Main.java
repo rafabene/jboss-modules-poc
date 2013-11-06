@@ -7,7 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.jboss.developer.modules.model.BaseModule;
 import org.jboss.developer.modules.model.Module;
@@ -19,8 +22,8 @@ public class Main {
     public static void main(String[] args) throws BuildException, IOException {
         File moduesPath = new File("/Users/rafaelbenevides/projetos/eap-beta/jboss-eap-6.2/modules");
         mib = ModulesInformationBuilder.getInstance(moduesPath);
-//        generateListOfPrivatePAckages();
-        generateXML();
+        generateListOfPrivatePAckages();
+        // generateXML();
     }
 
     private static void generateXML() throws BuildException, IOException {
@@ -34,16 +37,18 @@ public class Main {
     private static void generateListOfPrivatePAckages() throws BuildException, IOException {
         List<BaseModule> modules = mib.build();
         StringBuilder sb = new StringBuilder();
+        Set<String> privatePackages = new TreeSet<String>();
         for (BaseModule bm : modules) {
             if (bm instanceof Module) {
                 Module module = (Module) bm;
                 if (((Module) bm).isPrivateModule()) {
-                    for (String pkg : module.getPackages()) {
-                        sb.append(pkg);
-                        sb.append(",\n");
-                    }
+                    privatePackages.addAll(((Module) bm).getPackages());
                 }
             }
+        }
+        for (String pkg : privatePackages) {
+            sb.append(pkg);
+            sb.append(",\n");
         }
         System.out.println(sb.toString());
 
