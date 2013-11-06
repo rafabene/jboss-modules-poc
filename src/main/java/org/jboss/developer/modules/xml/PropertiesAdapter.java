@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.xml;
+package org.jboss.developer.modules.xml;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import org.jboss.jdf.modules.xml.PropertiesAdapter.AdaptedProperties;
+import org.jboss.developer.modules.xml.PropertiesAdapter.AdaptedProperties;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
@@ -88,7 +88,7 @@ public class PropertiesAdapter extends XmlAdapter<AdaptedProperties, Properties>
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
      */
     @Override
-    public Properties unmarshal(org.jboss.jdf.modules.xml.PropertiesAdapter.AdaptedProperties v) throws Exception {
+    public Properties unmarshal(org.jboss.developer.modules.xml.PropertiesAdapter.AdaptedProperties v) throws Exception {
         Properties p = new Properties();
         for (AdaptedProperty ap : v.getProperties()) {
             p.put(ap.getName(), ap.getValue());
@@ -102,7 +102,7 @@ public class PropertiesAdapter extends XmlAdapter<AdaptedProperties, Properties>
      * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
      */
     @Override
-    public org.jboss.jdf.modules.xml.PropertiesAdapter.AdaptedProperties marshal(Properties v) throws Exception {
+    public org.jboss.developer.modules.xml.PropertiesAdapter.AdaptedProperties marshal(Properties v) throws Exception {
         AdaptedProperties ap = new AdaptedProperties();
         for (Object name : v.keySet()) {
             Object value = v.get(name);

@@ -20,25 +20,60 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules;
+package org.jboss.developer.modules.xml;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.jboss.developer.modules.model.BaseModule;
 
 /**
- * 
- * Throws in any case of problem during the build of Modules Information
- * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-public class BuildException extends Exception {
+@XmlRootElement(name = "modules")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+public class ModulesElement {
 
-    private static final long serialVersionUID = 1L;
-
+    private List<BaseModule> modules = new ArrayList<BaseModule>();
+    
+    private File rooPath;
+    
+    ModulesElement() {
+        // Default Constructor to JAXB
+    }
+    
+    
     /**
-     * @param message
-     * @param cause
+     * @param rooPath
      */
-    public BuildException(String message, Throwable cause) {
-        super(message, cause);
+    public ModulesElement(File rooPath) {
+        this.rooPath = rooPath;
+    }
+    
+    
+    /**
+     * @return the rooPath
+     */
+    @XmlElement(name="root-path")
+    public File getRooPath() {
+        return rooPath;
     }
 
+
+
+    /**
+     * @return the module
+     */
+    @XmlAnyElement
+    public List<BaseModule> getModules() {
+        return modules;
+    }
 }

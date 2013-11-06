@@ -20,15 +20,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.test;
+package org.jboss.developer.test;
 
 import java.io.IOException;
 import java.util.Set;
 
-import org.jboss.jdf.modules.jar.Gav;
-import org.jboss.jdf.modules.jar.Jar;
-import org.jboss.jdf.modules.model.BaseModule;
-import org.jboss.jdf.modules.model.Module;
+import org.jboss.developer.modules.model.BaseModule;
+import org.jboss.developer.modules.model.Gav;
+import org.jboss.developer.modules.model.Jar;
+import org.jboss.developer.modules.model.Module;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,7 +39,7 @@ import org.junit.Test;
 public class ModulesTest extends AbstractModulesTest {
 
     /**
-     * Test method for {@link org.jboss.jdf.modules.jar.JarUtils#isPrivateModule(org.jboss.jdf.modules.model.Module)}.
+     * Test method for {@link org.jboss.jdf.modules.jar.JarUtils#isPrivateModule(org.jboss.developer.modules.model.Module)}.
      */
     @Test
     public void testIsPrivateModule() {
@@ -53,7 +53,7 @@ public class ModulesTest extends AbstractModulesTest {
     }
 
     /**
-     * Test method for {@link org.jboss.jdf.modules.jar.JarUtils#isPrivateModule(org.jboss.jdf.modules.model.Module)}.
+     * Test method for {@link org.jboss.jdf.modules.jar.JarUtils#isPrivateModule(org.jboss.developer.modules.model.Module)}.
      */
     @Test
     public void testNotPrivateModule() {
@@ -67,7 +67,7 @@ public class ModulesTest extends AbstractModulesTest {
     }
 
     /**
-     * Test method for {@link org.jboss.jdf.modules.jar.JarUtils#getPackagesFromModule(org.jboss.jdf.modules.model.Module)}.
+     * Test method for {@link org.jboss.jdf.modules.jar.JarUtils#getPackagesFromModule(org.jboss.developer.modules.model.Module)}.
      * 
      * @throws IOException
      */
@@ -77,7 +77,7 @@ public class ModulesTest extends AbstractModulesTest {
             if (am.getName().equals("org.picketlink")) {
                 Module module = (Module) am;
                 Set<String> packages = module.getPackages();
-                Assert.assertEquals("Picketlink packages for picketlink module should be 100 packages", 100, packages.size());
+                Assert.assertEquals("Picketlink packages for picketlink module should be 106 packages", 106, packages.size());
 
             }
         }
@@ -97,7 +97,7 @@ public class ModulesTest extends AbstractModulesTest {
                 Gav gav = jar.getGav();
                 Assert.assertEquals(gav.getGroupId(), "org.picketlink");
                 Assert.assertEquals(gav.getArtifactId(), "picketlink-core");
-                Assert.assertEquals(gav.getVersion(), "2.1.1.Final-redhat-1");
+                Assert.assertEquals(gav.getVersion(), "2.1.6.3.Final-redhat-2");
             }
         }
     }

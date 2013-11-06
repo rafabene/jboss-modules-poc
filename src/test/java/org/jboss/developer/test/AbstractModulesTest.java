@@ -20,54 +20,33 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.model;
+package org.jboss.developer.test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.jboss.developer.modules.ModulesInformationBuilder;
+import org.jboss.developer.modules.model.BaseModule;
+import org.junit.BeforeClass;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-@XmlRootElement(name = "module-alias")
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class ModuleAlias extends BaseModule {
+public abstract class AbstractModulesTest {
 
-    private BaseModule target;
+    protected static String modulesRoot;
 
-    ModuleAlias() {
-        // default constructor for JAXB
-    }
+    protected static List<BaseModule> modules = new ArrayList<BaseModule>();
 
     /**
-     * @param rootPath
+     * @throws java.lang.Exception
      */
-    public ModuleAlias(File rootPath, String name, String slot, File sourceXML, BaseModule target) {
-        super(rootPath, name, slot, sourceXML);
-        this.target = target;
-    }
-
-    /**
-     * @return the target
-     */
-    @XmlElement
-    public BaseModule getTarget() {
-        return target;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return String.format("ModuleAlias [name=%s, slot=%s, target-name=%s, target-slot=%s]", getName(), getSlot(),
-                target.getName(), target.getSlot());
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        modulesRoot = "/Users/rafaelbenevides/projetos/eap-beta/jboss-eap-6.2/modules";
+        modules = ModulesInformationBuilder.getInstance(new File(modulesRoot)).build();
     }
 
 }

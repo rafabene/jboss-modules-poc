@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.jar;
+package org.jboss.developer.modules.model;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
@@ -88,18 +88,22 @@ public class Jar {
     @XmlElement(name = "gav")
     public Gav getGav() throws IOException {
         JarFile jarFile = new JarFile(this.getJarFile());
-        Enumeration<JarEntry> entries = jarFile.entries();
-        // For all Entries
-        while (entries.hasMoreElements()) {
-            JarEntry jarEntry = (JarEntry) entries.nextElement();
-            // look for pom.properties
-            if (jarEntry.getName().endsWith("pom.properties")) {
-                Gav gav = extractGavInformation(jarFile, jarEntry);
-                return gav;
+        try {
+            Enumeration<JarEntry> entries = jarFile.entries();
+            // For all Entries
+            while (entries.hasMoreElements()) {
+                JarEntry jarEntry = (JarEntry) entries.nextElement();
+                // look for pom.properties
+                if (jarEntry.getName().endsWith("pom.properties")) {
+                    Gav gav = extractGavInformation(jarFile, jarEntry);
+                    return gav;
 
+                }
             }
+            return null;
+        } finally {
+            jarFile.close();
         }
-        return null;
     }
 
     /**

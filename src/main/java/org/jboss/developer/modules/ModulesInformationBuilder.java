@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules;
+package org.jboss.developer.modules;
 
 import java.io.File;
 import java.io.StringWriter;
@@ -32,12 +32,12 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import org.jboss.jdf.modules.io.ModulesFinder;
-import org.jboss.jdf.modules.model.BaseModule;
-import org.jboss.jdf.modules.model.Module;
-import org.jboss.jdf.modules.model.ModuleAlias;
-import org.jboss.jdf.modules.xml.ModulesElement;
-import org.jboss.jdf.modules.xml.XMLModuleParser;
+import org.jboss.developer.modules.io.ModulesFinder;
+import org.jboss.developer.modules.model.BaseModule;
+import org.jboss.developer.modules.model.Module;
+import org.jboss.developer.modules.model.ModuleAlias;
+import org.jboss.developer.modules.xml.ModulesElement;
+import org.jboss.developer.modules.xml.XMLModuleParser;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>

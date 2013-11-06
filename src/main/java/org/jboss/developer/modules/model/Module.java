@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.model;
+package org.jboss.developer.modules.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,8 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.jboss.jdf.modules.jar.Jar;
-import org.jboss.jdf.modules.xml.PropertiesAdapter;
+import org.jboss.developer.modules.xml.PropertiesAdapter;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
@@ -168,21 +167,25 @@ public class Module extends BaseModule {
             throw new IOException(String.format("Parameter should be a file: %s", jar));
         }
         JarFile jarFile = new JarFile(jar);
-        Enumeration<JarEntry> entries = jarFile.entries();
-        while (entries.hasMoreElements()) {
-            JarEntry jarEntry = (JarEntry) entries.nextElement();
-            // get only package folders that has Classes
-            if (jarEntry.getName().endsWith(".class")) {
-                String className = jarEntry.getName().replaceAll("/", ".").replaceAll(".class", "");
-                // Remove the class Name
-                int i = className.lastIndexOf('.');
-                if (i > 0) {
-                    String packageName = className.substring(0, i);
-                    packages.add(packageName);
+        try {
+            Enumeration<JarEntry> entries = jarFile.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry jarEntry = (JarEntry) entries.nextElement();
+                // get only package folders that has Classes
+                if (jarEntry.getName().endsWith(".class")) {
+                    String className = jarEntry.getName().replaceAll("/", ".").replaceAll(".class", "");
+                    // Remove the class Name
+                    int i = className.lastIndexOf('.');
+                    if (i > 0) {
+                        String packageName = className.substring(0, i);
+                        packages.add(packageName);
+                    }
                 }
             }
+            return packages;
+        } finally {
+            jarFile.close();
         }
-        return packages;
     }
 
     /**

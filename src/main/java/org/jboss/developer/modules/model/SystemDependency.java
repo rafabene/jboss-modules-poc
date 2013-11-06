@@ -20,63 +20,51 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.jar;
+package org.jboss.developer.modules.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Gav {
+public class SystemDependency {
 
-    @XmlAttribute
-    private String groupId;
+    private boolean export = false;
 
-    @XmlAttribute
-    private String artifactId;
+    private List<String> paths = new ArrayList<String>();
 
-    @XmlAttribute
-    private String version;
+    private Filter exports;
 
-    Gav() {
-        // Default constructor to JAXB
+    /**
+     * Specify whether this dependency is re-exported by default; if not specified, defaults to "false"
+     */
+    public boolean isExport() {
+        return export;
+    }
+
+    public void setExport(boolean export) {
+        this.export = export;
     }
 
     /**
-     * @param groupId
-     * @param artifactId
-     * @param version
+     * A filter which restricts the list of packages/paths which are re-exported by this module. If not specified, all paths are
+     * selected (does not apply if the export attribute on the system element is false or unspecified).
      */
-    public Gav(String groupId, String artifactId, String version) {
-        super();
-        this.groupId = groupId;
-        this.artifactId = artifactId;
-        this.version = version;
+    public Filter getExports() {
+        return exports;
+    }
+
+    public void setExports(Filter exports) {
+        this.exports = exports;
     }
 
     /**
-     * @return the groupId
+     * Specify the list of paths (or packages, with "." transformed to "/") which are exposed by this dependency.
      */
-    public String getGroupId() {
-        return groupId;
-    }
-
-    /**
-     * @return the artifactId
-     */
-    public String getArtifactId() {
-        return artifactId;
-    }
-
-    /**
-     * @return the version
-     */
-    public String getVersion() {
-        return version;
+    public List<String> getPaths() {
+        return paths;
     }
 
     /*
@@ -86,7 +74,7 @@ public class Gav {
      */
     @Override
     public String toString() {
-        return String.format("GAV [groupId=%s, artifactId=%s, version=%s]", groupId, artifactId, version);
+        return String.format("SystemDependency [export=%s, paths=%s, exports=%s]", isExport(), getPaths(), getExports());
     }
 
 }

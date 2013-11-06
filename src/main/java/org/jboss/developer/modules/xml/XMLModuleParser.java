@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.xml;
+package org.jboss.developer.modules.xml;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,14 +30,14 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jboss.jdf.modules.jar.Jar;
-import org.jboss.jdf.modules.model.BaseModule;
-import org.jboss.jdf.modules.model.Filter;
-import org.jboss.jdf.modules.model.Module;
-import org.jboss.jdf.modules.model.ModuleAlias;
-import org.jboss.jdf.modules.model.ModuleDependency;
-import org.jboss.jdf.modules.model.Services;
-import org.jboss.jdf.modules.model.SystemDependency;
+import org.jboss.developer.modules.model.BaseModule;
+import org.jboss.developer.modules.model.Filter;
+import org.jboss.developer.modules.model.Jar;
+import org.jboss.developer.modules.model.Module;
+import org.jboss.developer.modules.model.ModuleAlias;
+import org.jboss.developer.modules.model.ModuleDependency;
+import org.jboss.developer.modules.model.Services;
+import org.jboss.developer.modules.model.SystemDependency;
 import org.jboss.logging.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

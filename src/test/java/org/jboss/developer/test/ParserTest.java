@@ -20,16 +20,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.test;
+package org.jboss.developer.test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.jdf.modules.io.ModulesFinder;
-import org.jboss.jdf.modules.model.BaseModule;
-import org.jboss.jdf.modules.xml.XMLModuleParser;
+import org.jboss.developer.modules.io.ModulesFinder;
+import org.jboss.developer.modules.model.BaseModule;
+import org.jboss.developer.modules.xml.XMLModuleParser;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,7 +54,7 @@ public class ParserTest extends AbstractModulesTest {
     }
 
     /**
-     * Test method for {@link org.jboss.jdf.modules.xml.XMLModuleParser#parse(java.io.File)}.
+     * Test method for {@link org.jboss.developer.modules.xml.XMLModuleParser#parse(java.io.File)}.
      * 
      * @throws IOException
      * @throws SAXException
@@ -66,7 +66,7 @@ public class ParserTest extends AbstractModulesTest {
             BaseModule module = parser.parse(xml);
             modules.add(module);
         }
-        Assert.assertEquals("Should be 259 modules found on EAP modules folder", 259, modules.size());
+        Assert.assertEquals("Should be 280 modules found on EAP 6.2 modules folder", 280, modules.size());
     }
 
     @Test

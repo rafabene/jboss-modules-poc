@@ -20,51 +20,43 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.model;
+package org.jboss.developer.modules.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-public class SystemDependency {
+@XmlRootElement(name = "module-alias")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+public class ModuleAlias extends BaseModule {
 
-    private boolean export = false;
+    private BaseModule target;
 
-    private List<String> paths = new ArrayList<String>();
-
-    private Filter exports;
-
-    /**
-     * Specify whether this dependency is re-exported by default; if not specified, defaults to "false"
-     */
-    public boolean isExport() {
-        return export;
-    }
-
-    public void setExport(boolean export) {
-        this.export = export;
+    ModuleAlias() {
+        // default constructor for JAXB
     }
 
     /**
-     * A filter which restricts the list of packages/paths which are re-exported by this module. If not specified, all paths are
-     * selected (does not apply if the export attribute on the system element is false or unspecified).
+     * @param rootPath
      */
-    public Filter getExports() {
-        return exports;
-    }
-
-    public void setExports(Filter exports) {
-        this.exports = exports;
+    public ModuleAlias(File rootPath, String name, String slot, File sourceXML, BaseModule target) {
+        super(rootPath, name, slot, sourceXML);
+        this.target = target;
     }
 
     /**
-     * Specify the list of paths (or packages, with "." transformed to "/") which are exposed by this dependency.
+     * @return the target
      */
-    public List<String> getPaths() {
-        return paths;
+    @XmlElement
+    public BaseModule getTarget() {
+        return target;
     }
 
     /*
@@ -74,7 +66,8 @@ public class SystemDependency {
      */
     @Override
     public String toString() {
-        return String.format("SystemDependency [export=%s, paths=%s, exports=%s]", isExport(), getPaths(), getExports());
+        return String.format("ModuleAlias [name=%s, slot=%s, target-name=%s, target-slot=%s]", getName(), getSlot(),
+                target.getName(), target.getSlot());
     }
 
 }

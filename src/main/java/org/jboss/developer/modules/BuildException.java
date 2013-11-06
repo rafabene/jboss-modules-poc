@@ -20,43 +20,25 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.test;
-
-import java.io.File;
-import java.util.List;
-
-import org.jboss.jdf.modules.io.ModulesFinder;
-import org.junit.Assert;
-import org.junit.Test;
+package org.jboss.developer.modules;
 
 /**
+ * 
+ * Throws in any case of problem during the build of Modules Information
+ * 
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-public class ModuleFinderTest extends AbstractModulesTest {
+public class BuildException extends Exception {
 
-    private ModulesFinder mf = new ModulesFinder();
-
-    /**
-     * Test method for {@link org.jboss.jdf.modules.io.ModulesFinder#findModulesInPath(java.io.File)}.
-     */
-    @Test
-    public void testFindModulesInPath() {
-        List<File> modules = mf.findModulesInPath(new File(modulesRoot));
-        Assert.assertEquals("Should be 259 modules found on EAP modules folder", 259, modules.size());
-    }
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Test method for {@link org.jboss.jdf.modules.io.ModulesFinder#findModulesInPath(java.io.File)}.
+     * @param message
+     * @param cause
      */
-    @Test
-    public void testFindModulesInPathNotExistentFolder() {
-        try {
-            mf.findModulesInPath(new File("/xpto"));
-            Assert.fail("Should not run");
-        } catch (IllegalArgumentException e) {
-            Assert.assertNotNull("Should give exception on non existing folder", e);
-        }
+    public BuildException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }

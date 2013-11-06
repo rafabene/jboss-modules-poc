@@ -20,60 +20,43 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.jdf.modules.xml;
+package org.jboss.developer.test;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.jboss.jdf.modules.model.BaseModule;
+import org.jboss.developer.modules.io.ModulesFinder;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
  * 
  */
-@XmlRootElement(name = "modules")
-@XmlAccessorType(XmlAccessType.PROPERTY)
-public class ModulesElement {
+public class ModuleFinderTest extends AbstractModulesTest {
 
-    private List<BaseModule> modules = new ArrayList<BaseModule>();
-    
-    private File rooPath;
-    
-    ModulesElement() {
-        // Default Constructor to JAXB
-    }
-    
-    
-    /**
-     * @param rooPath
-     */
-    public ModulesElement(File rooPath) {
-        this.rooPath = rooPath;
-    }
-    
-    
-    /**
-     * @return the rooPath
-     */
-    @XmlElement(name="root-path")
-    public File getRooPath() {
-        return rooPath;
-    }
-
-
+    private ModulesFinder mf = new ModulesFinder();
 
     /**
-     * @return the module
+     * Test method for {@link org.jboss.developer.modules.io.ModulesFinder#findModulesInPath(java.io.File)}.
      */
-    @XmlAnyElement
-    public List<BaseModule> getModules() {
-        return modules;
+    @Test
+    public void testFindModulesInPath() {
+        List<File> modules = mf.findModulesInPath(new File(modulesRoot));
+        Assert.assertEquals("Should be 280 modules found on EAP 6.2 modules folder", 280, modules.size());
     }
+
+    /**
+     * Test method for {@link org.jboss.developer.modules.io.ModulesFinder#findModulesInPath(java.io.File)}.
+     */
+    @Test
+    public void testFindModulesInPathNotExistentFolder() {
+        try {
+            mf.findModulesInPath(new File("/xpto"));
+            Assert.fail("Should not run");
+        } catch (IllegalArgumentException e) {
+            Assert.assertNotNull("Should give exception on non existing folder", e);
+        }
+    }
+
 }
